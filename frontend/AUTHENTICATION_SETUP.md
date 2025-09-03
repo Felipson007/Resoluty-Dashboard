@@ -2,7 +2,7 @@
 
 ## ⚠️ Erro Identificado
 
-O erro `auth/configuration-not-found` indica que o Authentication não está habilitado no Firebase Console.
+O erro `400 (Bad Request)` na URL `identitytoolkit.googleapis.com/v1/accounts:signUp` indica que o Authentication não está habilitado no Firebase Console.
 
 ## 🛠️ Solução Rápida
 
@@ -24,11 +24,15 @@ O erro `auth/configuration-not-found` indica que o Authentication não está hab
 3. Adicione: `resolutydashboard.web.app`
 4. Clique em **"Save"**
 
+### 4. **Verificar se está funcionando**
+- Após habilitar, você deve ver "Email/Password" como "Enabled"
+- O domínio `resolutydashboard.web.app` deve aparecer na lista de domínios autorizados
+
 ## 🎯 Teste Rápido
 
 Após configurar:
 1. **Acesse**: https://resolutydashboard.web.app
-2. **Crie** uma conta nova
+2. **Crie** uma conta nova (use um email diferente)
 3. **Faça** login
 4. **Verifique** no Firebase Console > Authentication > Users
 
@@ -44,6 +48,16 @@ firebase deploy --only hosting
 # Deploy completo (após habilitar Firestore)
 firebase deploy
 ```
+
+## 🆘 Troubleshooting
+
+### Erro: "Email already in use"
+- Use um email diferente para teste
+- Ou delete o usuário no Firebase Console > Authentication > Users
+
+### Erro: "400 Bad Request"
+- Verifique se Authentication está habilitado
+- Verifique se o domínio está autorizado
 
 ---
 

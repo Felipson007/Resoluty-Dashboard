@@ -1,23 +1,32 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { 
   User, 
-  signInWithEmailAndPassword, 
-  createUserWithEmailAndPassword,
-  signOut,
+  signOut, 
   onAuthStateChanged,
   sendPasswordResetEmail
 } from 'firebase/auth';
-import { auth } from '../firebase';
-import { createUserProfile, getUserProfile, updateUserProfile, UserProfile } from '../services/userService';
+import { auth, registerUser, loginUser } from '../firebase';
+
+// Interface simplificada sem Firestore
+interface SimpleUserProfile {
+  uid: string;
+  email: string;
+  displayName: string;
+  role: string;
+  department: string;
+  createdAt: Date;
+  lastLogin?: Date;
+  isActive: boolean;
+}
 
 interface AuthContextType {
   currentUser: User | null;
-  userProfile: UserProfile | null;
+  userProfile: SimpleUserProfile | null;
   login: (email: string, password: string) => Promise<any>;
   signup: (email: string, password: string) => Promise<any>;
   logout: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
-  updateProfile: (updates: Partial<UserProfile>) => Promise<void>;
+  updateProfile: (updates: Partial<SimpleUserProfile>) => Promise<void>;
   loading: boolean;
 }
 
@@ -37,20 +46,39 @@ interface AuthProviderProps {
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+  const [userProfile, setUserProfile] = useState<SimpleUserProfile | null>(null);
   const [loading, setLoading] = useState(true);
 
   async function signup(email: string, password: string) {
-    const result = await createUserWithEmailAndPassword(auth, email, password);
-    // Criar perfil do usuário no Firestore
-    await createUserProfile(result.user);
+    const result = await registerUser(email, password);
+    
+    // Criar perfil básico do usuário (sem Firestore)
+    const profile: SimpleUserProfile = {
+      uid: result.uid,
+      email: result.email || '',
+      displayName: result.displayName || '',
+      role: 'member',
+      department: 'general',
+      createdAt: new Date(),
+      lastLogin: new Date(),
+      isActive: true
+    };
+    
+    setUserProfile(profile);
     return result;
   }
 
   async function login(email: string, password: string) {
-    const result = await signInWithEmailAndPassword(auth, email, password);
-    // Atualizar último login
-    await updateUserProfile(result.user.uid, { lastLogin: new Date() });
+    const result = await loginUser(email, password);
+    
+    // Atualizar último login (sem Firestore)
+    if (userProfile) {
+      setUserProfile({
+        ...userProfile,
+        lastLogin: new Date()
+      });
+    }
+    
     return result;
   }
 
@@ -62,10 +90,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
     return sendPasswordResetEmail(auth, email);
   }
 
-  async function updateProfile(updates: Partial<UserProfile>) {
-    if (currentUser) {
-      await updateUserProfile(currentUser.uid, updates);
-      setUserProfile(prev => prev ? { ...prev, ...updates } : null);
+  async function updateProfile(updates: Partial<SimpleUserProfile>) {
+    if (currentUser && userProfile) {
+      const updatedProfile = { ...userProfile, ...updates };
+      setUserProfile(updatedProfile);
     }
   }
 
@@ -74,13 +102,19 @@ export function AuthProvider({ children }: AuthProviderProps) {
       setCurrentUser(user);
       
       if (user) {
-        // Buscar perfil do usuário no Firestore
-        try {
-          const profile = await getUserProfile(user.uid);
-          setUserProfile(profile);
-        } catch (error) {
-          console.error('Erro ao buscar perfil do usuário:', error);
-        }
+        // Criar perfil básico do usuário (sem Firestore)
+        const profile: SimpleUserProfile = {
+          uid: user.uid,
+          email: user.email || '',
+          displayName: user.displayName || '',
+          role: 'member',
+          department: 'general',
+          createdAt: new Date(),
+          lastLogin: new Date(),
+          isActive: true
+        };
+        
+        setUserProfile(profile);
       } else {
         setUserProfile(null);
       }
