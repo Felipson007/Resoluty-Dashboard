@@ -118,7 +118,7 @@ firebase deploy --only firestore:indexes
 ## ⚡ GitHub Actions
 
 Os workflows do GitHub Actions foram corrigidos e agora usam:
-- `npm ci` em vez de `npm cli`
+- `npm install` em vez de `npm cli`
 - Node.js 18
 - Setup adequado do ambiente
 
