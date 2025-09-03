@@ -6,7 +6,7 @@ import {
   sendPasswordResetEmail
 } from 'firebase/auth';
 import { auth, registerUser, loginUser } from '../firebase';
-import { createUserProfile, getUserProfile, updateUserProfile, UserProfile } from '../services/userService';
+import { getUserProfile, updateUserProfile, UserProfile } from '../services/userService';
 
 interface AuthContextType {
   currentUser: User | null;
