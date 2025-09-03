@@ -119,9 +119,10 @@ firebase deploy --only firestore:indexes
 
 Os workflows do GitHub Actions foram corrigidos e agora usam:
 - `cd frontend && npm install --legacy-peer-deps` em vez de `npm cli`
-- Node.js 18
+- Node.js 20 (compatível com Firebase CLI v14+)
 - Setup adequado do ambiente
 - Navegação para o diretório correto (frontend)
+- Configuração correta do entryPoint
 
 ## 🆘 Troubleshooting
 

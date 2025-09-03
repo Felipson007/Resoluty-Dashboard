@@ -14,9 +14,9 @@ import { User } from 'firebase/auth';
 export interface UserProfile {
   uid: string;
   email: string;
-  displayName?: string;
-  role?: string;
-  department?: string;
+  displayName: string;
+  role: string;
+  department: string;
   createdAt: Date;
   lastLogin?: Date;
   isActive: boolean;
@@ -32,9 +32,9 @@ export async function createUserProfile(user: User, additionalData?: Partial<Use
     const userProfile: UserProfile = {
       uid: user.uid,
       email: user.email || '',
-      displayName: user.displayName || additionalData?.displayName,
+      displayName: user.displayName || additionalData?.displayName || '',
       role: additionalData?.role || 'user',
-      department: additionalData?.department,
+      department: additionalData?.department || '',
       createdAt: new Date(),
       lastLogin: new Date(),
       isActive: true,
