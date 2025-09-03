@@ -3,7 +3,7 @@
  * 
  * Componente principal da aplicação que gerencia:
  * - Roteamento entre páginas
- * - Sistema de autenticação
+ * - Sistema de autenticação Firebase
  * - Layout responsivo com sidebar
  * - Proteção de rotas
  * 
@@ -11,10 +11,12 @@
  * @version 1.0.0
  */
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
+import PrivateRoute from './components/PrivateRoute';
 import Sidebar from './components/Sidebar';
-import Login from './pages/Login';
+import Login from './components/Login';
 import Home from './pages/Home';
 import CustomerSuccess from './pages/CustomerSuccess';
 import Gestao from './pages/Gestao';
@@ -26,42 +28,12 @@ import Administrativo from './pages/Administrativo';
 const SIDEBAR_WIDTH = 240;
 
 /**
- * Componente para verificar autenticação e proteger rotas
- * 
- * @param children - Componentes filhos a serem renderizados se autenticado
- * @returns JSX.Element - Componente protegido ou redirecionamento
- */
-function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  // Verificar se usuário está autenticado via localStorage
-  const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
-  
-  // Se não autenticado, redirecionar para login
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
-  }
-  
-  // Se autenticado, renderizar componentes filhos
-  return <>{children}</>;
-}
-
-/**
  * Componente principal de rotas da aplicação
  * Gerencia navegação e lógica de autenticação
  */
 function AppRoutes() {
   const location = useLocation();
   const hideSidebar = location.pathname === '/login';
-  const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
-
-  // Se não estiver autenticado e não estiver na página de login, redirecionar
-  if (!isAuthenticated && location.pathname !== '/login') {
-    return <Navigate to="/login" replace />;
-  }
-
-  // Se estiver autenticado e estiver na página de login, redirecionar para home
-  if (isAuthenticated && location.pathname === '/login') {
-    return <Navigate to="/home" replace />;
-  }
 
   return (
     <div style={{ display: 'flex' }}>
@@ -79,44 +51,50 @@ function AppRoutes() {
           <Route path="/login" element={<Login />} />
           
           {/* Rotas protegidas */}
-          <Route path="/home" element={
-            <ProtectedRoute>
+          <Route path="/" element={
+            <PrivateRoute>
               <Home />
-            </ProtectedRoute>
+            </PrivateRoute>
+          } />
+          
+          <Route path="/home" element={
+            <PrivateRoute>
+              <Home />
+            </PrivateRoute>
           } />
           
           <Route path="/gestao" element={
-            <ProtectedRoute>
+            <PrivateRoute>
               <Gestao />
-            </ProtectedRoute>
+            </PrivateRoute>
           } />
           
           <Route path="/financeiro" element={
-            <ProtectedRoute>
+            <PrivateRoute>
               <Financeiro />
-            </ProtectedRoute>
+            </PrivateRoute>
           } />
           
           <Route path="/comercial" element={
-            <ProtectedRoute>
+            <PrivateRoute>
               <Comercial />
-            </ProtectedRoute>
+            </PrivateRoute>
           } />
           
           <Route path="/customer-success" element={
-            <ProtectedRoute>
+            <PrivateRoute>
               <CustomerSuccess />
-            </ProtectedRoute>
+            </PrivateRoute>
           } />
           
           <Route path="/administrativo" element={
-            <ProtectedRoute>
+            <PrivateRoute>
               <Administrativo />
-            </ProtectedRoute>
+            </PrivateRoute>
           } />
           
-          {/* Rota padrão - redirecionar para login */}
-          <Route path="*" element={<Navigate to="/login" replace />} />
+          {/* Rota padrão - redirecionar para home */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
     </div>
@@ -125,12 +103,14 @@ function AppRoutes() {
 
 /**
  * Componente raiz da aplicação
- * Configura o roteador e renderiza as rotas
+ * Configura o roteador, contexto de autenticação e renderiza as rotas
  */
 export default function App() {
   return (
-    <Router>
-      <AppRoutes />
-    </Router>
+    <AuthProvider>
+      <Router>
+        <AppRoutes />
+      </Router>
+    </AuthProvider>
   );
 }

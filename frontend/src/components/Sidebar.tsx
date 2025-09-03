@@ -29,6 +29,7 @@ import IconButton from '@mui/material/IconButton';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 import { csBackgroundColor, resolutyPalette } from '../pages/CustomerSuccess';
 import Logo from '../logo.svg'; // Usar logo Resoluty
 
@@ -69,15 +70,19 @@ export default function Sidebar() {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate();
+  const { logout } = useAuth();
 
   /**
    * Função para fazer logout do usuário
    * Remove dados de autenticação e redireciona para login
    */
-  const handleLogout = () => {
-    localStorage.removeItem('isAuthenticated');
-    localStorage.removeItem('user');
-    navigate('/login');
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate('/login');
+    } catch (error) {
+      console.error('Erro ao fazer logout:', error);
+    }
   };
 
   // Renderização para dispositivos móveis
