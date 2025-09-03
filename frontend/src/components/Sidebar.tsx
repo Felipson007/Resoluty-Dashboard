@@ -12,13 +12,11 @@
  * @version 1.0.0
  */
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Drawer, List, ListItem, ListItemIcon, ListItemText, Box, Typography, ListSubheader, ListItemButton, Divider, Button } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import PeopleIcon from '@mui/icons-material/People';
-import BusinessIcon from '@mui/icons-material/Business';
-import AssessmentIcon from '@mui/icons-material/Assessment';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -30,7 +28,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { csBackgroundColor, resolutyPalette } from '../pages/CustomerSuccess';
+import { resolutyPalette } from '../pages/CustomerSuccess';
 import Logo from '../logo.svg'; // Usar logo Resoluty
 
 /**

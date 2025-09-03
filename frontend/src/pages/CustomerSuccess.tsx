@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Box, Typography, Paper, Stack, TextField, Button, Grid, AppBar, Toolbar, Avatar } from '@mui/material';
-import { Bar, Pie, Line } from 'react-chartjs-2';
-import { MonetizationOn, TrendingUp, TrendingDown, Percent, Assignment, Star, WaterDrop, QrCode2, CalendarToday } from '@mui/icons-material';
+import React, { useState, useEffect } from 'react';
+import { Box, Typography, Paper } from '@mui/material';
+import { Bar, Pie } from 'react-chartjs-2';
+import { MonetizationOn, TrendingUp, TrendingDown, Percent, Assignment, Star, WaterDrop } from '@mui/icons-material';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -280,11 +280,7 @@ function getMesAnoAtual(): string {
 }
 
 export default function CustomerSuccess() {
-  const [periodoState, setPeriodoState] = useState({ inicio: '', fim: '' });
-  const [dados, setDados] = useState(getMockData());
   const [sheetData, setSheetData] = useState<any[][]>([]);
-  const [loadingSheet, setLoadingSheet] = useState(false);
-  const [sheetError, setSheetError] = useState<string | null>(null);
   const [kpis, setKpis] = useState({ meta: 0, realizado: 0, diferenca: 0, pctMeta: '0%', avaliacoes: 0 });
   const mesAnoAtual = getMesAnoAtual();
 
@@ -318,15 +314,11 @@ export default function CustomerSuccess() {
     let lastMes = mesAnoAtual;
     let timeout: NodeJS.Timeout;
     const fetchSheet = async () => {
-      setLoadingSheet(true);
-      setSheetError(null);
       try {
         const data = await getSheetData(SHEET_ID, SHEET_TAB);
         setSheetData(data);
       } catch (err: any) {
-        setSheetError(err.message);
-      } finally {
-        setLoadingSheet(false);
+        console.error('Erro ao buscar dados:', err.message);
       }
     };
     fetchSheet();
@@ -402,7 +394,7 @@ export default function CustomerSuccess() {
             }}>
               <Box sx={{ height: '100%' }}>
                 <Bar 
-                  data={dados.faturamentoData} 
+                  data={getMockData().faturamentoData} 
                   options={chartOptions('Faturamento por Funcionário')}
                 />
               </Box>
@@ -418,7 +410,7 @@ export default function CustomerSuccess() {
             }}>
               <Box sx={{ height: '100%' }}>
                 <Bar 
-                  data={dados.acordosData} 
+                  data={getMockData().acordosData} 
                   options={chartOptions('Número de Acordos por Funcionário')}
                 />
               </Box>
@@ -441,7 +433,7 @@ export default function CustomerSuccess() {
             }}>
               <Box sx={{ height: '100%' }}>
                 <Bar 
-                  data={dados.peData} 
+                  data={getMockData().peData} 
                   options={chartOptions('P.E/Adimplência por Funcionário')}
                 />
               </Box>
@@ -457,7 +449,7 @@ export default function CustomerSuccess() {
             }}>
               <Box sx={{ height: '100%' }}>
                 <Bar 
-                  data={dados.grandeData} 
+                  data={getMockData().grandeData} 
                   options={chartOptions('Grande por Funcionário')}
                 />
               </Box>
@@ -480,7 +472,7 @@ export default function CustomerSuccess() {
             }}>
               <Box sx={{ height: '100%' }}>
                 <Pie 
-                  data={dados.quitacaoData} 
+                  data={getMockData().quitacaoData} 
                   options={chartOptions('Quitação Geral', true)}
                 />
               </Box>
@@ -496,7 +488,7 @@ export default function CustomerSuccess() {
             }}>
               <Box sx={{ height: '100%' }}>
                 <Pie 
-                  data={dados.mesesQuitacaoData} 
+                  data={getMockData().mesesQuitacaoData} 
                   options={chartOptions('Média de Meses de Quitação', true)}
                 />
               </Box>
@@ -512,7 +504,7 @@ export default function CustomerSuccess() {
             }}>
               <Box sx={{ height: '100%' }}>
                 <Pie 
-                  data={dados.vazaoCarteiraData} 
+                  data={getMockData().vazaoCarteiraData} 
                   options={chartOptions('Vazão da Carteira', true)}
                 />
               </Box>

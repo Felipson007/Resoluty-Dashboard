@@ -1,7 +1,6 @@
 import React from 'react';
 import { Box, Card, CardContent, Typography } from '@mui/material';
-import Grid from '@mui/material/Grid';
-import { csBackgroundColor, resolutyPalette } from './CustomerSuccess';
+import { resolutyPalette } from './CustomerSuccess';
 
 const faturamento = [
   { title: 'Faturamento Anual', value: 'R$ 2450.00' },
