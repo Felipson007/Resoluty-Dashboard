@@ -73,7 +73,19 @@ export async function getUserProfile(uid: string): Promise<UserProfile | null> {
  */
 export async function updateUserProfile(uid: string, updates: Partial<UserProfile>) {
   try {
-    const userRef = doc(db, 'users', uid);
+    // Primeiro, buscar o documento pelo UID
+    const usersRef = collection(db, 'users');
+    const q = query(usersRef, where('uid', '==', uid));
+    const querySnapshot = await getDocs(q);
+    
+    if (querySnapshot.empty) {
+      throw new Error(`Documento com UID ${uid} não encontrado`);
+    }
+    
+    // Pegar o primeiro documento encontrado
+    const userDoc = querySnapshot.docs[0];
+    const userRef = doc(db, 'users', userDoc.id);
+    
     await updateDoc(userRef, {
       ...updates,
       lastLogin: new Date()
