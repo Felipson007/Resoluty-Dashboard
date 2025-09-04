@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, Paper, Grid } from '@mui/material';
-import { Bar, Pie, Line } from 'react-chartjs-2';
+import {  Bar, Pie, Line } from 'react-chartjs-2';
 import { 
   MonetizationOn, 
   TrendingUp, 
@@ -244,18 +244,7 @@ export const resolutyPalette = {
 };
 
 export default function Financeiro() {
-  const [kpis, setKpis] = useState({ receita: 0, despesas: 0, lucro: 0, margem: '0%' });
   const mockData = getMockData();
-
-  useEffect(() => {
-    // Simular dados em tempo real
-    setKpis({
-      receita: 2450000,
-      despesas: 1850000,
-      lucro: 600000,
-      margem: '24.5%'
-    });
-  }, []);
 
   return (
     <Box sx={{ 
