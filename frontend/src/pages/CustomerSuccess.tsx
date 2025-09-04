@@ -26,7 +26,7 @@ ChartJS.register(
 
 const getMockData = () => ({
   indicadores: [
-    { label: '% Meta Atingida', value: '29,88%' },
+    { label: '% Meta Atingida', value: '320%' },
     { label: 'Meta', value: 'R$ 155.000,00' },
     { label: 'Realizado', value: 'R$ 46.321,06' },
     { label: 'Diferença', value: 'R$ -108.678,94' },
