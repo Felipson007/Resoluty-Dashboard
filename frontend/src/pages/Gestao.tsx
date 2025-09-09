@@ -8,7 +8,7 @@ import {
   Assessment, 
   Speed,
   Business,
-  Target,
+  Flag,
   Analytics,
   Timeline,
   ShowChart,
@@ -204,7 +204,7 @@ const kpiIcons = [
   <ShowChart fontSize="large" />,           // Crescimento Anual
   <Speed fontSize="large" />,               // Eficiência Operacional
   <People fontSize="large" />,              // Satisfação dos Stakeholders
-  <Target fontSize="large" />,              // Metas Atingidas
+  <Flag fontSize="large" />,                // Metas Atingidas
   <Assessment fontSize="large" />,          // Produtividade da Equipe
   <AttachMoney fontSize="large" />,         // Custos Controlados
   <Analytics fontSize="large" />,           // Inovação Index
@@ -452,4 +452,4 @@ export default function Gestao() {
       </Grid>
     </Box>
   );
-}
+} 
