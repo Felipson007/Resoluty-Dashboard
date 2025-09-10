@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Estilos globais do Resoluty Dashboard */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  color: #222222;
+  background: #FFFFFF;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Paleta Resoluty */
+:root {
+  --resoluty-background: #FFFFFF;
+  --resoluty-sidebar: #FFFFFF;
+  --resoluty-text: #222222;
+  --resoluty-text-secondary: #757575;
+  --resoluty-border: #E0E0E0;
+  --resoluty-card: #FFFFFF;
+  --resoluty-chart-bg: #FFFFFF;
+  --resoluty-kpi-hit: #22C55E;
+  --resoluty-kpi-warning: #F59E0B;
+  --resoluty-kpi-danger: #EF4444;
+  --resoluty-primary: #1976d2;
+  --resoluty-secondary: #26c6da;
+  --resoluty-success: #4caf50;
+  --resoluty-warning: #ff9800;
+  --resoluty-error: #f44336;
+  --resoluty-info: #2196f3;
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--resoluty-border);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--resoluty-primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--resoluty-info);
+}
