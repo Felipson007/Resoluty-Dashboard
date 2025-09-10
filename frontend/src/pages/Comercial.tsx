@@ -5,8 +5,6 @@ import {
   People, 
   AttachMoney, 
   ShoppingCart, 
-  Phone, 
-  Email,
   Assessment,
   Campaign,
   PersonAdd,

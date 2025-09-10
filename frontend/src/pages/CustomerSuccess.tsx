@@ -4,14 +4,12 @@ import {
   ThumbUp, 
   People, 
   Star, 
-  Support, 
   TrendingUp, 
   Refresh,
   Assignment,
   Speed,
   CheckCircle,
   Warning,
-  Cancel,
   EmojiEmotions
 } from '@mui/icons-material';
 import {

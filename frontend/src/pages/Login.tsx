@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, TextField, Button, Paper, Typography, Alert } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { resolutyPalette } from './CustomerSuccess';
+import { resolutyPalette } from './Financeiro';
 
 export default function Login() {
   const [username, setUsername] = useState('');
@@ -58,8 +58,8 @@ export default function Login() {
               label: { color: resolutyPalette.text },
               '& .MuiOutlinedInput-root': {
                 '& fieldset': { borderColor: resolutyPalette.text },
-                '&:hover fieldset': { borderColor: resolutyPalette.activeSidebar },
-                '&.Mui-focused fieldset': { borderColor: resolutyPalette.activeSidebar }
+                '&:hover fieldset': { borderColor: resolutyPalette.primary },
+                '&.Mui-focused fieldset': { borderColor: resolutyPalette.primary }
               }
             }} 
           />
@@ -76,8 +76,8 @@ export default function Login() {
               label: { color: resolutyPalette.text },
               '& .MuiOutlinedInput-root': {
                 '& fieldset': { borderColor: resolutyPalette.text },
-                '&:hover fieldset': { borderColor: resolutyPalette.activeSidebar },
-                '&.Mui-focused fieldset': { borderColor: resolutyPalette.activeSidebar }
+                '&:hover fieldset': { borderColor: resolutyPalette.primary },
+                '&.Mui-focused fieldset': { borderColor: resolutyPalette.primary }
               }
             }} 
           />
@@ -87,12 +87,12 @@ export default function Login() {
             type="submit"
             disabled={isLoading || !username || !password}
             sx={{ 
-              background: resolutyPalette.activeSidebar, 
-              color: resolutyPalette.text, 
+              background: resolutyPalette.primary, 
+              color: 'white', 
               fontWeight: 700, 
               fontSize: 18, 
               py: 1.5, 
-              ':hover': { background: resolutyPalette.hoverSidebar },
+              ':hover': { background: resolutyPalette.secondary },
               ':disabled': { background: resolutyPalette.sidebar, color: resolutyPalette.text }
             }}
           >

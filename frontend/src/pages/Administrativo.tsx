@@ -7,7 +7,6 @@ import {
   Schedule, 
   Assessment, 
   Security,
-  AdminPanelSettings,
   Description,
   FolderOpen,
   Work,

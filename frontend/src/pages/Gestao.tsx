@@ -11,8 +11,7 @@ import {
   Flag,
   Analytics,
   Timeline,
-  ShowChart,
-  BarChart
+  ShowChart
 } from '@mui/icons-material';
 import {
   Chart as ChartJS,

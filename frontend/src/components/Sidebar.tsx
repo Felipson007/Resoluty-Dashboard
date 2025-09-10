@@ -28,7 +28,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { resolutyPalette } from '../pages/CustomerSuccess';
+import { resolutyPalette } from '../pages/Financeiro';
 import Logo from '../logo.svg'; // Usar logo Resoluty
 
 /**
@@ -143,8 +143,8 @@ export default function Sidebar() {
                         pl: 2, 
                         mb: 0.5, 
                         borderRadius: 1, 
-                        '&:hover': { background: resolutyPalette.hoverSidebar }, 
-                        background: item.path === window.location.pathname ? resolutyPalette.activeSidebar : 'transparent', 
+                        '&:hover': { background: resolutyPalette.border }, 
+                        background: item.path === window.location.pathname ? resolutyPalette.primary : 'transparent', 
                         color: resolutyPalette.text, 
                         display: 'flex', 
                         alignItems: 'center', 
@@ -173,8 +173,8 @@ export default function Sidebar() {
                 color: resolutyPalette.text,
                 borderColor: resolutyPalette.text,
                 '&:hover': {
-                  borderColor: resolutyPalette.activeSidebar,
-                  background: resolutyPalette.hoverSidebar
+                  borderColor: resolutyPalette.primary,
+                  background: resolutyPalette.border
                 }
               }}
             >
@@ -230,8 +230,8 @@ export default function Sidebar() {
                       pl: 2,
                       mb: 0.5,
                       borderRadius: 1,
-                      '&:hover': { background: resolutyPalette.hoverSidebar },
-                      background: item.path === window.location.pathname ? resolutyPalette.activeSidebar : 'transparent',
+                      '&:hover': { background: resolutyPalette.border },
+                      background: item.path === window.location.pathname ? resolutyPalette.primary : 'transparent',
                       color: item.path === window.location.pathname ? resolutyPalette.text : resolutyPalette.text,
                     }}
                     component="li"
@@ -259,8 +259,8 @@ export default function Sidebar() {
               color: resolutyPalette.text,
               borderColor: resolutyPalette.text,
               '&:hover': {
-                borderColor: resolutyPalette.activeSidebar,
-                background: resolutyPalette.hoverSidebar
+                borderColor: resolutyPalette.primary,
+                background: resolutyPalette.border
               }
             }}
           >
