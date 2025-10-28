@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {
   Drawer,
@@ -8,7 +9,8 @@ import {
   Box,
   Typography,
   Divider,
-  Button
+  Button,
+  Collapse
 } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import PeopleIcon from '@mui/icons-material/People';
@@ -16,6 +18,11 @@ import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import AssessmentIcon from '@mui/icons-material/Assessment';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import { useAuth } from '../contexts/AuthContext';
 
 // Configuração de cores
@@ -45,16 +52,22 @@ const sections = [
     title: 'Geral',
     items: [
       { text: 'Comercial', icon: <TrendingUpIcon />, path: '/comercial' },
-      { text: 'Customer Success', icon: <SupportAgentIcon />, path: '/customer-success' },
       { text: 'Administrativo', icon: <MenuBookIcon />, path: '/administrativo' },
     ],
   },
+];
+
+const customerSuccessItems = [
+  { text: 'Visão Geral', icon: <DashboardIcon />, path: '/customer-success/overview' },
+  { text: 'Status e Fases', icon: <AssessmentIcon />, path: '/customer-success/status' },
+  { text: 'Financeiro e Avaliação', icon: <AccountBalanceIcon />, path: '/customer-success/finance' },
 ];
 
 export default function Sidebar() {
   const navigate = useNavigate();
   const location = useLocation();
   const { logout } = useAuth();
+  const [customerSuccessOpen, setCustomerSuccessOpen] = useState(false);
 
   const handleLogout = async () => {
     try {
@@ -69,6 +82,12 @@ export default function Sidebar() {
   const handleNavigation = (path: string) => {
     navigate(path);
   };
+
+  const handleCustomerSuccessClick = () => {
+    setCustomerSuccessOpen(!customerSuccessOpen);
+  };
+
+  const isCustomerSuccessActive = location.pathname.startsWith('/customer-success');
 
   return (
     <Drawer
@@ -131,6 +150,65 @@ export default function Sidebar() {
               </List>
             </Box>
           ))}
+
+          {/* Customer Success com Dropdown */}
+          <Box mb={2}>
+            <Typography
+              variant="body2"
+              color="textSecondary"
+              fontWeight={500}
+              mb={1}
+              sx={{ pl: 1, color: resolutyPalette.text }}
+            >
+              Customer Success
+            </Typography>
+
+            <ListItem
+              onClick={handleCustomerSuccessClick}
+              sx={{
+                pl: 2,
+                mb: 0.5,
+                borderRadius: 1,
+                '&:hover': { background: resolutyPalette.border },
+                background: isCustomerSuccessActive ? resolutyPalette.primary : 'transparent',
+                color: resolutyPalette.text,
+                cursor: 'pointer',
+              }}
+              component="li"
+            >
+              <ListItemIcon sx={{ minWidth: 36, color: resolutyPalette.text }}>
+                <SupportAgentIcon />
+              </ListItemIcon>
+              <ListItemText primary="Customer Success" />
+              {customerSuccessOpen ? <ExpandLess /> : <ExpandMore />}
+            </ListItem>
+
+            <Collapse in={customerSuccessOpen} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                {customerSuccessItems.map(item => (
+                  <ListItem
+                    key={item.text}
+                    onClick={() => handleNavigation(item.path)}
+                    sx={{
+                      pl: 4,
+                      mb: 0.5,
+                      borderRadius: 1,
+                      '&:hover': { background: resolutyPalette.border },
+                      background: location.pathname === item.path ? resolutyPalette.primary : 'transparent',
+                      color: resolutyPalette.text,
+                      cursor: 'pointer',
+                    }}
+                    component="li"
+                  >
+                    <ListItemIcon sx={{ minWidth: 36, color: resolutyPalette.text }}>
+                      {item.icon}
+                    </ListItemIcon>
+                    <ListItemText primary={item.text} />
+                  </ListItem>
+                ))}
+              </List>
+            </Collapse>
+          </Box>
         </Box>
 
         {/* Botão de logout */}

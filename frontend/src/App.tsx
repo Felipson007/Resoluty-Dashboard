@@ -4,7 +4,9 @@ import Sidebar from './components/Sidebar'
 import LoginPage from './components/Login'
 import Home from './components/Home'
 import Comercial from './pages/Comercial'
-import CustomerSuccess from './pages/CustomerSuccess'
+import CustomerSuccessOverview from './pages/CustomerSuccessOverview'
+import CustomerSuccessStatus from './pages/CustomerSuccessStatus'
+import CustomerSuccessFinance from './pages/CustomerSuccessFinance'
 import Administrativo from './pages/Administrativo'
 import Gestao from './pages/Gestao'
 
@@ -69,14 +71,38 @@ function AppRoutes() {
         }
       />
       <Route
-        path="/customer-success"
+        path="/customer-success/overview"
         element={
           <ProtectedRoute>
             <DashboardLayout>
-              <CustomerSuccess />
+              <CustomerSuccessOverview />
             </DashboardLayout>
           </ProtectedRoute>
         }
+      />
+      <Route
+        path="/customer-success/status"
+        element={
+          <ProtectedRoute>
+            <DashboardLayout>
+              <CustomerSuccessStatus />
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/customer-success/finance"
+        element={
+          <ProtectedRoute>
+            <DashboardLayout>
+              <CustomerSuccessFinance />
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/customer-success"
+        element={<Navigate to="/customer-success/overview" replace />}
       />
       <Route
         path="/administrativo"
