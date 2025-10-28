@@ -75,14 +75,6 @@ export default function CustomerSuccessFinance() {
       color: resolutyPalette.text,
       padding: { xs: 2, sm: 3 }
     }}>
-      <Typography variant="h4" gutterBottom sx={{ 
-        fontWeight: 700, 
-        color: resolutyPalette.text,
-        marginBottom: 3
-      }}>
-        💰 Financeiro e Avaliação
-      </Typography>
-
       <Grid container spacing={{ xs: 2, sm: 3 }}>
         {/* Métricas Financeiras */}
         <Grid item xs={12} md={6}>

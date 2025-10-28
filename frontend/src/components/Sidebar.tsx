@@ -10,7 +10,8 @@ import {
   Typography,
   Divider,
   Button,
-  Collapse
+  Collapse,
+  IconButton
 } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import PeopleIcon from '@mui/icons-material/People';
@@ -23,6 +24,8 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useAuth } from '../contexts/AuthContext';
 
 // Configuração de cores
@@ -63,7 +66,12 @@ const customerSuccessItems = [
   { text: 'Financeiro e Avaliação', icon: <AccountBalanceIcon />, path: '/customer-success/finance' },
 ];
 
-export default function Sidebar() {
+interface SidebarProps {
+  isCollapsed: boolean;
+  onToggle: () => void;
+}
+
+export default function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const { logout } = useAuth();
@@ -89,13 +97,16 @@ export default function Sidebar() {
 
   const isCustomerSuccessActive = location.pathname.startsWith('/customer-success');
 
+  const sidebarWidth = isCollapsed ? 64 : 240;
+
   return (
     <Drawer
       variant="permanent"
       open={true}
       PaperProps={{
         style: {
-          width: 240,
+          width: sidebarWidth,
+          transition: 'width 0.3s ease',
           background: resolutyPalette.sidebar,
           color: resolutyPalette.text,
           borderRight: '1px solid #eee',
@@ -104,26 +115,39 @@ export default function Sidebar() {
       }}
     >
       <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-        {/* Logo da empresa */}
-        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', py: 2 }}>
-          <Typography variant="h6" sx={{ color: resolutyPalette.text }}>
-            Resoluty
-          </Typography>
+        {/* Botão de toggle e Logo */}
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', px: 2, py: 1 }}>
+          {!isCollapsed && (
+            <Typography variant="h6" sx={{ color: resolutyPalette.text, flex: 1 }}>
+              Resoluty
+            </Typography>
+          )}
+          <IconButton
+            onClick={onToggle}
+            sx={{
+              color: resolutyPalette.text,
+              '&:hover': { background: resolutyPalette.border }
+            }}
+          >
+            {isCollapsed ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+          </IconButton>
         </Box>
 
         {/* Conteúdo do menu */}
-        <Box sx={{ px: 2, flex: 1 }}>
+        <Box sx={{ px: isCollapsed ? 1 : 2, flex: 1 }}>
           {sections.map(section => (
-            <Box key={section.title} mb={2}>
-              <Typography
-                variant="body2"
-                color="textSecondary"
-                fontWeight={500}
-                mb={1}
-                sx={{ pl: 1, color: resolutyPalette.text }}
-              >
-                {section.title}
-              </Typography>
+            <Box key={section.title} mb={!isCollapsed ? 2 : 0}>
+              {!isCollapsed && (
+                <Typography
+                  variant="body2"
+                  color="textSecondary"
+                  fontWeight={500}
+                  mb={1}
+                  sx={{ pl: 1, color: resolutyPalette.text }}
+                >
+                  {section.title}
+                </Typography>
+              )}
 
               <List disablePadding>
                 {section.items.map(item => (
@@ -131,20 +155,31 @@ export default function Sidebar() {
                     key={item.text}
                     onClick={() => handleNavigation(item.path)}
                     sx={{
-                      pl: 2,
+                      pl: isCollapsed ? 0.5 : 2,
+                      justifyContent: isCollapsed ? 'center' : 'flex-start',
                       mb: 0.5,
                       borderRadius: 1,
                       '&:hover': { background: resolutyPalette.border },
                       background: location.pathname === item.path ? resolutyPalette.primary : 'transparent',
                       color: resolutyPalette.text,
                       cursor: 'pointer',
+                      minHeight: 48,
                     }}
                     component="li"
+                    title={isCollapsed ? item.text : ''}
                   >
-                    <ListItemIcon sx={{ minWidth: 36, color: resolutyPalette.text }}>
-                      {item.icon}
-                    </ListItemIcon>
-                    <ListItemText primary={item.text} />
+                    {isCollapsed ? (
+                      <ListItemIcon sx={{ minWidth: 'auto', color: resolutyPalette.text }}>
+                        {item.icon}
+                      </ListItemIcon>
+                    ) : (
+                      <>
+                        <ListItemIcon sx={{ minWidth: 36, color: resolutyPalette.text }}>
+                          {item.icon}
+                        </ListItemIcon>
+                        <ListItemText primary={item.text} />
+                      </>
+                    )}
                   </ListItem>
                 ))}
               </List>
@@ -153,66 +188,105 @@ export default function Sidebar() {
 
           {/* Customer Success com Dropdown */}
           <Box mb={2}>
-            <Typography
-              variant="body2"
-              color="textSecondary"
-              fontWeight={500}
-              mb={1}
-              sx={{ pl: 1, color: resolutyPalette.text }}
-            >
-              Customer Success
-            </Typography>
+            {!isCollapsed && (
+              <Typography
+                variant="body2"
+                color="textSecondary"
+                fontWeight={500}
+                mb={1}
+                sx={{ pl: 1, color: resolutyPalette.text }}
+              >
+                Customer Success
+              </Typography>
+            )}
 
             <ListItem
-              onClick={handleCustomerSuccessClick}
+              onClick={!isCollapsed ? handleCustomerSuccessClick : () => {}}
               sx={{
-                pl: 2,
+                pl: isCollapsed ? 0.5 : 2,
+                justifyContent: isCollapsed ? 'center' : 'flex-start',
                 mb: 0.5,
                 borderRadius: 1,
                 '&:hover': { background: resolutyPalette.border },
                 background: isCustomerSuccessActive ? resolutyPalette.primary : 'transparent',
                 color: resolutyPalette.text,
                 cursor: 'pointer',
+                minHeight: 48,
               }}
               component="li"
+              title={isCollapsed ? 'Customer Success' : ''}
             >
-              <ListItemIcon sx={{ minWidth: 36, color: resolutyPalette.text }}>
-                <SupportAgentIcon />
-              </ListItemIcon>
-              <ListItemText primary="Customer Success" />
-              {customerSuccessOpen ? <ExpandLess /> : <ExpandMore />}
+              {isCollapsed ? (
+                <ListItemIcon sx={{ minWidth: 'auto', color: resolutyPalette.text }}>
+                  <SupportAgentIcon />
+                </ListItemIcon>
+              ) : (
+                <>
+                  <ListItemIcon sx={{ minWidth: 36, color: resolutyPalette.text }}>
+                    <SupportAgentIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Customer Success" />
+                  {customerSuccessOpen ? <ExpandLess /> : <ExpandMore />}
+                </>
+              )}
             </ListItem>
 
-            <Collapse in={customerSuccessOpen} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                {customerSuccessItems.map(item => (
-                  <ListItem
-                    key={item.text}
-                    onClick={() => handleNavigation(item.path)}
-                    sx={{
-                      pl: 4,
-                      mb: 0.5,
-                      borderRadius: 1,
-                      '&:hover': { background: resolutyPalette.border },
-                      background: location.pathname === item.path ? resolutyPalette.primary : 'transparent',
-                      color: resolutyPalette.text,
-                      cursor: 'pointer',
-                    }}
-                    component="li"
-                  >
-                    <ListItemIcon sx={{ minWidth: 36, color: resolutyPalette.text }}>
-                      {item.icon}
-                    </ListItemIcon>
-                    <ListItemText primary={item.text} />
-                  </ListItem>
-                ))}
-              </List>
-            </Collapse>
+            {!isCollapsed && (
+              <Collapse in={customerSuccessOpen} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                  {customerSuccessItems.map(item => (
+                    <ListItem
+                      key={item.text}
+                      onClick={() => handleNavigation(item.path)}
+                      sx={{
+                        pl: 4,
+                        mb: 0.5,
+                        borderRadius: 1,
+                        '&:hover': { background: resolutyPalette.border },
+                        background: location.pathname === item.path ? resolutyPalette.primary : 'transparent',
+                        color: resolutyPalette.text,
+                        cursor: 'pointer',
+                        minHeight: 40,
+                      }}
+                      component="li"
+                    >
+                      <ListItemIcon sx={{ minWidth: 36, color: resolutyPalette.text }}>
+                        {item.icon}
+                      </ListItemIcon>
+                      <ListItemText primary={item.text} />
+                    </ListItem>
+                  ))}
+                </List>
+              </Collapse>
+            )}
+            {isCollapsed && customerSuccessItems.map(item => (
+              <ListItem
+                key={item.text}
+                onClick={() => handleNavigation(item.path)}
+                sx={{
+                  pl: 0.5,
+                  justifyContent: 'center',
+                  mb: 0.5,
+                  borderRadius: 1,
+                  '&:hover': { background: resolutyPalette.border },
+                  background: location.pathname === item.path ? resolutyPalette.primary : 'transparent',
+                  color: resolutyPalette.text,
+                  cursor: 'pointer',
+                  minHeight: 40,
+                }}
+                component="li"
+                title={item.text}
+              >
+                <ListItemIcon sx={{ minWidth: 'auto', color: resolutyPalette.text }}>
+                  {item.icon}
+                </ListItemIcon>
+              </ListItem>
+            ))}
           </Box>
         </Box>
 
         {/* Botão de logout */}
-        <Box sx={{ px: 2, pb: 2 }}>
+        <Box sx={{ px: isCollapsed ? 1 : 2, pb: 2 }}>
           <Divider sx={{ mb: 2, borderColor: resolutyPalette.text }} />
           <Button
             fullWidth
@@ -222,13 +296,14 @@ export default function Sidebar() {
             sx={{
               color: resolutyPalette.text,
               borderColor: resolutyPalette.text,
+              minWidth: isCollapsed ? 40 : 'auto',
               '&:hover': {
                 borderColor: resolutyPalette.activeSidebar,
                 background: resolutyPalette.hoverSidebar
               }
             }}
           >
-            Sair
+            {!isCollapsed && 'Sair'}
           </Button>
         </Box>
       </Box>

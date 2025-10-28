@@ -122,13 +122,6 @@ export default function CustomerSuccessStatus() {
       color: resolutyPalette.text,
       padding: { xs: 2, sm: 3 }
     }}>
-      <Typography variant="h4" gutterBottom sx={{ 
-        fontWeight: 700, 
-        color: resolutyPalette.text,
-        marginBottom: 3
-      }}>
-        📈 Status e Fases
-      </Typography>
 
       {/* KPIs e Gráficos Principais */}
       <Grid container spacing={{ xs: 2, sm: 3 }} sx={{ marginBottom: 4 }}>

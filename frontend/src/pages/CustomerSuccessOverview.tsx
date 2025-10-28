@@ -124,13 +124,6 @@ export default function CustomerSuccessOverview() {
       color: resolutyPalette.text,
       padding: { xs: 2, sm: 3 }
     }}>
-      <Typography variant="h4" gutterBottom sx={{ 
-        fontWeight: 700, 
-        color: resolutyPalette.text,
-        marginBottom: 3
-      }}>
-        📊 Visão Geral
-      </Typography>
 
       {/* KPIs Principais */}
       <Grid container spacing={{ xs: 2, sm: 3 }} sx={{ marginBottom: 4 }}>

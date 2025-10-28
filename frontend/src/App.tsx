@@ -1,14 +1,15 @@
+import { useState } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider, useAuth } from './contexts/AuthContext'
 import Sidebar from './components/Sidebar'
 import LoginPage from './components/Login'
-import Home from './components/Home'
 import Comercial from './pages/Comercial'
 import CustomerSuccessOverview from './pages/CustomerSuccessOverview'
 import CustomerSuccessStatus from './pages/CustomerSuccessStatus'
 import CustomerSuccessFinance from './pages/CustomerSuccessFinance'
 import Administrativo from './pages/Administrativo'
 import Gestao from './pages/Gestao'
+import Home from './components/Home'
 
 // Wrapper component para páginas que requerem autenticação
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -35,18 +36,32 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 }
 
 // Layout com Sidebar para páginas protegidas
-function DashboardLayout({ children }: { children: React.ReactNode }) {
+function DashboardLayout({ children, isCollapsed, onToggle }: { children: React.ReactNode; isCollapsed: boolean; onToggle: () => void }) {
+  const sidebarWidth = isCollapsed ? 64 : 240;
+  
   return (
-    <div style={{ display: 'flex' }}>
-      <Sidebar />
-      <div style={{ flex: 1, marginLeft: 240 }}>
+    <>
+      <Sidebar isCollapsed={isCollapsed} onToggle={onToggle} />
+      <main style={{ 
+        marginLeft: `${sidebarWidth}px`,
+        transition: 'margin-left 0.3s ease',
+        minHeight: '100vh'
+      }}>
         {children}
-      </div>
-    </div>
+      </main>
+    </>
   )
 }
 
 function AppRoutes() {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  const DashboardLayoutWithState = ({ children }: { children: React.ReactNode }) => (
+    <DashboardLayout isCollapsed={isCollapsed} onToggle={() => setIsCollapsed(!isCollapsed)}>
+      {children}
+    </DashboardLayout>
+  );
+
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
@@ -54,9 +69,9 @@ function AppRoutes() {
         path="/dashboard"
         element={
           <ProtectedRoute>
-            <DashboardLayout>
+            <DashboardLayoutWithState>
               <Home />
-            </DashboardLayout>
+            </DashboardLayoutWithState>
           </ProtectedRoute>
         }
       />
@@ -64,9 +79,9 @@ function AppRoutes() {
         path="/comercial"
         element={
           <ProtectedRoute>
-            <DashboardLayout>
+            <DashboardLayoutWithState>
               <Comercial />
-            </DashboardLayout>
+            </DashboardLayoutWithState>
           </ProtectedRoute>
         }
       />
@@ -74,9 +89,9 @@ function AppRoutes() {
         path="/customer-success/overview"
         element={
           <ProtectedRoute>
-            <DashboardLayout>
+            <DashboardLayoutWithState>
               <CustomerSuccessOverview />
-            </DashboardLayout>
+            </DashboardLayoutWithState>
           </ProtectedRoute>
         }
       />
@@ -84,9 +99,9 @@ function AppRoutes() {
         path="/customer-success/status"
         element={
           <ProtectedRoute>
-            <DashboardLayout>
+            <DashboardLayoutWithState>
               <CustomerSuccessStatus />
-            </DashboardLayout>
+            </DashboardLayoutWithState>
           </ProtectedRoute>
         }
       />
@@ -94,9 +109,9 @@ function AppRoutes() {
         path="/customer-success/finance"
         element={
           <ProtectedRoute>
-            <DashboardLayout>
+            <DashboardLayoutWithState>
               <CustomerSuccessFinance />
-            </DashboardLayout>
+            </DashboardLayoutWithState>
           </ProtectedRoute>
         }
       />
@@ -108,9 +123,9 @@ function AppRoutes() {
         path="/administrativo"
         element={
           <ProtectedRoute>
-            <DashboardLayout>
+            <DashboardLayoutWithState>
               <Administrativo />
-            </DashboardLayout>
+            </DashboardLayoutWithState>
           </ProtectedRoute>
         }
       />
@@ -118,9 +133,9 @@ function AppRoutes() {
         path="/gestao"
         element={
           <ProtectedRoute>
-            <DashboardLayout>
+            <DashboardLayoutWithState>
               <Gestao />
-            </DashboardLayout>
+            </DashboardLayoutWithState>
           </ProtectedRoute>
         }
       />
