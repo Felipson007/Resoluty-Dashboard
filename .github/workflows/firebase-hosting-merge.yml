@@ -26,4 +26,4 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_RESOLUTYDASHBOARD }}
           channelId: live
           projectId: resolutydashboard
-          entryPoint: ./
+          entryPoint: ./frontend
