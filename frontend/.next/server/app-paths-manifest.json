@@ -1,4 +1,14 @@
 {
+  "/_not-found/page": "app/_not-found/page.js",
   "/page": "app/page.js",
-  "/login/page": "app/login/page.js"
+  "/login/page": "app/login/page.js",
+  "/(dashboard)/customer-success/geral/page": "app/(dashboard)/customer-success/geral/page.js",
+  "/(dashboard)/customer-success/atendimentos/page": "app/(dashboard)/customer-success/atendimentos/page.js",
+  "/(dashboard)/customer-success/financeiro/page": "app/(dashboard)/customer-success/financeiro/page.js",
+  "/(dashboard)/comercial/page": "app/(dashboard)/comercial/page.js",
+  "/(dashboard)/administrativo/page": "app/(dashboard)/administrativo/page.js",
+  "/(dashboard)/financeiro/page": "app/(dashboard)/financeiro/page.js",
+  "/(dashboard)/page": "app/(dashboard)/page.js",
+  "/(dashboard)/customer-success/page": "app/(dashboard)/customer-success/page.js",
+  "/(dashboard)/gestao/page": "app/(dashboard)/gestao/page.js"
 }

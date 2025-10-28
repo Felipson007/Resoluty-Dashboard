@@ -1,1 +1,11 @@
-{}
+{
+  "/Home": "pages/Home.js",
+  "/_app": "pages/_app.js",
+  "/_error": "pages/_error.js",
+  "/Comercial": "pages/Comercial.js",
+  "/CustomerSuccess": "pages/CustomerSuccess.js",
+  "/Financeiro": "pages/Financeiro.js",
+  "/Administrativo": "pages/Administrativo.js",
+  "/Gestao": "pages/Gestao.js",
+  "/_document": "pages/_document.js"
+}

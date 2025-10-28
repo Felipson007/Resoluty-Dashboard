@@ -37,6 +37,8 @@ const resolutyPalette = {
   kpiDanger: '#EF4444',
   primary: '#2196f3',
   secondary: '#ff9800',
+  success: '#4caf50',
+  error: '#f44336',
 };
 
 const getMockData = () => ({

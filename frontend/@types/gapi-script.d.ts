@@ -3,8 +3,8 @@
  */
 
 declare namespace gapi {
-  export function load(api: string, callback: () => void): void;
-  export function client: {
+  function load(api: string, callback: () => void): void;
+  const client: {
     init: (config: any) => Promise<void>;
     getToken: () => any;
     setToken: (token: any) => void;
@@ -21,20 +21,20 @@ declare namespace gapi {
 }
 
 declare namespace google {
-  export namespace accounts {
-    export namespace oauth2 {
-      export interface TokenResponse {
+  namespace accounts {
+    namespace oauth2 {
+      interface TokenResponse {
         access_token: string;
         expires_in: number;
         error?: string;
       }
       
-      export interface TokenClient {
+      interface TokenClient {
         requestAccessToken: () => void;
       }
       
-      export function initTokenClient(config: any): TokenClient;
-      export function revoke(token: string): void;
+      function initTokenClient(config: any): TokenClient;
+      function revoke(token: string): void;
     }
   }
 }

@@ -77,16 +77,22 @@ export default function Sidebar() {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [open, setOpen] = React.useState(false);
   const [csExpanded, setCsExpanded] = React.useState(false);
+  const [mounted, setMounted] = React.useState(false);
   const router = useRouter();
   const pathname = usePathname();
   const { logout } = useAuth();
 
   // Expandir automaticamente o submenu CS se estiver em uma página de CS
   React.useEffect(() => {
+    setMounted(true);
     if (pathname?.startsWith('/customer-success')) {
       setCsExpanded(true);
     }
   }, [pathname]);
+
+  if (!mounted) {
+    return <div />;
+  }
 
   /**
    * Função para fazer logout do usuário
