@@ -1,16 +1,11 @@
 {
   "hosting": {
-    "public": "out",
+    "predeploy": "cd frontend && npm run build",
+    "public": "frontend/.next/standalone",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
     ]
   },
   "firestore": {

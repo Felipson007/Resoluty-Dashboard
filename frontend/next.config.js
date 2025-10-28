@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  reactStrictMode: true,
+  output: 'standalone',
   images: {
     domains: ['localhost'],
-    unoptimized: true,
   },
   // Configurações para compatibilidade com Firebase
   webpack: (config) => {
