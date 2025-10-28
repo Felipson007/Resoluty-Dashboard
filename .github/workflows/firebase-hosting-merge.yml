@@ -16,10 +16,11 @@ jobs:
           node-version: '20'
       - run: cd frontend && npm install --legacy-peer-deps
       - run: cd frontend && npm run build
-      - name: Copy public folder
+      - name: Copy public folder to standalone
         run: |
-          mkdir -p frontend/.next/standalone/public
-          cp -r frontend/public/* frontend/.next/standalone/public/
+          cd frontend
+          mkdir -p .next/standalone/public
+          cp -r public/* .next/standalone/public/
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}

@@ -1,7 +1,7 @@
 {
   "hosting": {
-    "predeploy": "cd frontend && npm run build",
-    "public": "frontend/.next/standalone",
+    "predeploy": "npm run build",
+    "public": ".next/standalone",
     "ignore": [
       "firebase.json",
       "**/.*",
