@@ -137,7 +137,7 @@ const chartOptions = (title: string, isPie = false) => ({
   })
 });
 
-export default function CustomerSuccessGeral() {
+export default function CustomerSuccessGeralPage() {
   const mockData = getMockData();
 
   return (
@@ -153,7 +153,7 @@ export default function CustomerSuccessGeral() {
         marginBottom: 4,
         textAlign: 'center'
       }}>
-        📊 Customer Success - Geral
+        📊 Customer Success - Visão Geral
       </Typography>
 
       {/* KPI Principal - Total Clientes */}
@@ -336,4 +336,3 @@ export default function CustomerSuccessGeral() {
     </Box>
   );
 }
-

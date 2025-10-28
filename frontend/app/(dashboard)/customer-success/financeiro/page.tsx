@@ -63,7 +63,7 @@ const chartOptions = (title: string) => ({
   },
 });
 
-export default function CustomerSuccessFinanceiro() {
+export default function CustomerSuccessFinanceiroPage() {
   const mockData = getMockData();
 
   return (
@@ -83,148 +83,44 @@ export default function CustomerSuccessFinanceiro() {
       </Typography>
 
       <Grid container spacing={3}>
-        {/* Coluna Esquerda - KPIs Financeiros */}
         <Grid item xs={12} md={4}>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-            {/* Meta */}
-            <Paper
-              elevation={3}
-              sx={{
-                padding: 3,
-                background: resolutyPalette.card,
-                border: `2px solid ${resolutyPalette.border}`,
-                borderRadius: 3,
-              }}
-            >
-              <Typography variant="h6" sx={{ fontWeight: 600, color: resolutyPalette.textSecondary, marginBottom: 1 }}>
-                Meta
-              </Typography>
-              <Typography variant="h4" sx={{ fontWeight: 700, color: resolutyPalette.text }}>
-                {mockData.metas.meta}
-              </Typography>
+            <Paper elevation={3} sx={{ padding: 3, background: resolutyPalette.card, border: `2px solid ${resolutyPalette.border}`, borderRadius: 3 }}>
+              <Typography variant="h6" sx={{ fontWeight: 600, color: resolutyPalette.textSecondary, marginBottom: 1 }}>Meta</Typography>
+              <Typography variant="h4" sx={{ fontWeight: 700, color: resolutyPalette.text }}>{mockData.metas.meta}</Typography>
             </Paper>
-
-            {/* Realizado */}
-            <Paper
-              elevation={3}
-              sx={{
-                padding: 3,
-                background: resolutyPalette.card,
-                border: `2px solid ${resolutyPalette.border}`,
-                borderRadius: 3,
-              }}
-            >
-              <Typography variant="h6" sx={{ fontWeight: 600, color: resolutyPalette.textSecondary, marginBottom: 1 }}>
-                Realizado
-              </Typography>
-              <Typography variant="h4" sx={{ fontWeight: 700, color: resolutyPalette.text }}>
-                {mockData.metas.realizado}
-              </Typography>
+            <Paper elevation={3} sx={{ padding: 3, background: resolutyPalette.card, border: `2px solid ${resolutyPalette.border}`, borderRadius: 3 }}>
+              <Typography variant="h6" sx={{ fontWeight: 600, color: resolutyPalette.textSecondary, marginBottom: 1 }}>Realizado</Typography>
+              <Typography variant="h4" sx={{ fontWeight: 700, color: resolutyPalette.text }}>{mockData.metas.realizado}</Typography>
             </Paper>
-
-            {/* Diferença */}
-            <Paper
-              elevation={3}
-              sx={{
-                padding: 3,
-                background: resolutyPalette.card,
-                border: `2px solid ${resolutyPalette.border}`,
-                borderRadius: 3,
-              }}
-            >
-              <Typography variant="h6" sx={{ fontWeight: 600, color: resolutyPalette.textSecondary, marginBottom: 1 }}>
-                Diferença
-              </Typography>
-              <Typography 
-                variant="h4" 
-                sx={{ 
-                  fontWeight: 700, 
-                  color: mockData.metas.diferenca.startsWith('R$ -') ? resolutyPalette.error : resolutyPalette.success 
-                }}
-              >
-                {mockData.metas.diferenca}
-              </Typography>
+            <Paper elevation={3} sx={{ padding: 3, background: resolutyPalette.card, border: `2px solid ${resolutyPalette.border}`, borderRadius: 3 }}>
+              <Typography variant="h6" sx={{ fontWeight: 600, color: resolutyPalette.textSecondary, marginBottom: 1 }}>Diferença</Typography>
+              <Typography variant="h4" sx={{ fontWeight: 700, color: mockData.metas.diferenca.startsWith('R$ -') ? resolutyPalette.error : resolutyPalette.success }}>{mockData.metas.diferenca}</Typography>
             </Paper>
-
-            {/* % Quitação */}
-            <Paper
-              elevation={3}
-              sx={{
-                padding: 3,
-                background: resolutyPalette.card,
-                border: `2px solid ${resolutyPalette.border}`,
-                borderRadius: 3,
-              }}
-            >
-              <Typography variant="h6" sx={{ fontWeight: 600, color: resolutyPalette.textSecondary, marginBottom: 1 }}>
-                % Quitação
-              </Typography>
-              <Typography variant="h4" sx={{ fontWeight: 700, color: resolutyPalette.success }}>
-                {mockData.metas.porcentagemQuitacao}
-              </Typography>
+            <Paper elevation={3} sx={{ padding: 3, background: resolutyPalette.card, border: `2px solid ${resolutyPalette.border}`, borderRadius: 3 }}>
+              <Typography variant="h6" sx={{ fontWeight: 600, color: resolutyPalette.textSecondary, marginBottom: 1 }}>% Quitação</Typography>
+              <Typography variant="h4" sx={{ fontWeight: 700, color: resolutyPalette.success }}>{mockData.metas.porcentagemQuitacao}</Typography>
             </Paper>
-
-            {/* Meses Quitação */}
-            <Paper
-              elevation={3}
-              sx={{
-                padding: 3,
-                background: resolutyPalette.card,
-                border: `2px solid ${resolutyPalette.border}`,
-                borderRadius: 3,
-              }}
-            >
-              <Typography variant="h6" sx={{ fontWeight: 600, color: resolutyPalette.textSecondary, marginBottom: 1 }}>
-                Meses Quitação
-              </Typography>
-              <Typography variant="h4" sx={{ fontWeight: 700, color: resolutyPalette.text }}>
-                {mockData.metas.mesesQuitacao}
-              </Typography>
+            <Paper elevation={3} sx={{ padding: 3, background: resolutyPalette.card, border: `2px solid ${resolutyPalette.border}`, borderRadius: 3 }}>
+              <Typography variant="h6" sx={{ fontWeight: 600, color: resolutyPalette.textSecondary, marginBottom: 1 }}>Meses Quitação</Typography>
+              <Typography variant="h4" sx={{ fontWeight: 700, color: resolutyPalette.text }}>{mockData.metas.mesesQuitacao}</Typography>
             </Paper>
           </Box>
         </Grid>
 
-        {/* Coluna Direita - Gráficos */}
         <Grid item xs={12} md={8}>
           <Grid container spacing={3}>
-            {/* Avaliação no Google */}
             <Grid item xs={12}>
-              <Paper
-                elevation={3}
-                sx={{
-                  padding: 2,
-                  background: resolutyPalette.card,
-                  border: `2px solid ${resolutyPalette.border}`,
-                  borderRadius: 3,
-                  height: 350,
-                }}
-              >
+              <Paper elevation={3} sx={{ padding: 2, background: resolutyPalette.card, border: `2px solid ${resolutyPalette.border}`, borderRadius: 3, height: 350 }}>
                 <Box sx={{ height: 300 }}>
-                  <Pie 
-                    data={mockData.avaliacaoGoogle} 
-                    options={chartOptions('Avaliação no Google')} 
-                  />
+                  <Pie data={mockData.avaliacaoGoogle} options={chartOptions('Avaliação no Google')} />
                 </Box>
               </Paper>
             </Grid>
-
-            {/* Vazão de Carteira */}
             <Grid item xs={12}>
-              <Paper
-                elevation={3}
-                sx={{
-                  padding: 2,
-                  background: resolutyPalette.card,
-                  border: `2px solid ${resolutyPalette.border}`,
-                  borderRadius: 3,
-                  height: 350,
-                }}
-              >
+              <Paper elevation={3} sx={{ padding: 2, background: resolutyPalette.card, border: `2px solid ${resolutyPalette.border}`, borderRadius: 3, height: 350 }}>
                 <Box sx={{ height: 300 }}>
-                  <Pie 
-                    data={mockData.vazaoCarteira} 
-                    options={chartOptions('Vazão de Carteira')} 
-                  />
+                  <Pie data={mockData.vazaoCarteira} options={chartOptions('Vazão de Carteira')} />
                 </Box>
               </Paper>
             </Grid>
@@ -234,4 +130,3 @@ export default function CustomerSuccessFinanceiro() {
     </Box>
   );
 }
-
