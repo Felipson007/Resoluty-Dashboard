@@ -11,8 +11,7 @@ import {
   Flag,
   Analytics,
   Timeline,
-  ShowChart,
-  BarChart
+  ShowChart
 } from '@mui/icons-material';
 import {
   Chart as ChartJS,
@@ -139,7 +138,7 @@ const getMockData = () => ({
   },
 });
 
-const chartOptions = (title: string, isPie = false, isLine = false) => ({
+const chartOptions = (title: string, isPie = false) => ({
   responsive: true,
   maintainAspectRatio: false,
   plugins: {
@@ -369,7 +368,7 @@ export default function Gestao() {
             }}
           >
             <Box sx={{ height: { xs: 280, sm: 320 } }}>
-              <Line data={mockData.kpisEstrategicosData} options={chartOptions('Evolução dos KPIs Estratégicos', false, true)} />
+              <Line data={mockData.kpisEstrategicosData} options={chartOptions('Evolução dos KPIs Estratégicos', false)} />
             </Box>
           </Paper>
         </Grid>
@@ -408,7 +407,7 @@ export default function Gestao() {
             }}
           >
             <Box sx={{ height: { xs: 280, sm: 320 } }}>
-              <Line data={mockData.inovacaoData} options={chartOptions('Evolução do Índice de Inovação', false, true)} />
+              <Line data={mockData.inovacaoData} options={chartOptions('Evolução do Índice de Inovação', false)} />
             </Box>
           </Paper>
         </Grid>

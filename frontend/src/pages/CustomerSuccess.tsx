@@ -4,14 +4,12 @@ import {
   ThumbUp, 
   People, 
   Star, 
-  Support, 
   TrendingUp, 
   Refresh,
   Assignment,
   Speed,
   CheckCircle,
   Warning,
-  Cancel,
   EmojiEmotions
 } from '@mui/icons-material';
 import {
@@ -137,7 +135,7 @@ const getMockData = () => ({
   },
 });
 
-const chartOptions = (title: string, isPie = false, isLine = false) => ({
+const chartOptions = (title: string, isPie = false) => ({
   responsive: true,
   maintainAspectRatio: false,
   plugins: {
@@ -361,7 +359,7 @@ export default function CustomerSuccess() {
             }}
           >
             <Box sx={{ height: { xs: 280, sm: 320 } }}>
-              <Line data={mockData.churnRateData} options={chartOptions('Evolução do Churn Rate', false, true)} />
+              <Line data={mockData.churnRateData} options={chartOptions('Evolução do Churn Rate', false)} />
             </Box>
           </Paper>
         </Grid>
@@ -382,7 +380,7 @@ export default function CustomerSuccess() {
             }}
           >
             <Box sx={{ height: { xs: 280, sm: 320 } }}>
-              <Line data={mockData.healthScoreData} options={chartOptions('Evolução do Health Score', false, true)} />
+              <Line data={mockData.healthScoreData} options={chartOptions('Evolução do Health Score', false)} />
             </Box>
           </Paper>
         </Grid>

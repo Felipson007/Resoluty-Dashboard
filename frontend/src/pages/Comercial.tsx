@@ -5,8 +5,6 @@ import {
   People, 
   AttachMoney, 
   ShoppingCart, 
-  Phone, 
-  Email,
   Assessment,
   Campaign,
   PersonAdd,
@@ -136,7 +134,7 @@ const getMockData = () => ({
   },
 });
 
-const chartOptions = (title: string, isPie = false, isLine = false) => ({
+const chartOptions = (title: string, isPie = false) => ({
   responsive: true,
   maintainAspectRatio: false,
   plugins: {
@@ -382,7 +380,7 @@ export default function Comercial() {
             }}
           >
             <Box sx={{ height: { xs: 280, sm: 320 } }}>
-              <Line data={mockData.ticketMedioData} options={chartOptions('Evolução do Ticket Médio', false, true)} />
+              <Line data={mockData.ticketMedioData} options={chartOptions('Evolução do Ticket Médio', false)} />
             </Box>
           </Paper>
         </Grid>

@@ -11,18 +11,12 @@ import {
   Button
 } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
-import BarChartIcon from '@mui/icons-material/BarChart';
 import PeopleIcon from '@mui/icons-material/People';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import { useAuth } from '../contexts/AuthContext';
-<<<<<<< HEAD
-=======
-import { resolutyPalette } from '../pages/CustomerSuccess';
-import Logo from '../logo.svg'; // Usar logo Resoluty
->>>>>>> parent of f7bfafb (.)
 
 // Configuração de cores
 const resolutyPalette = {
@@ -30,6 +24,8 @@ const resolutyPalette = {
   text: '#ffffff',
   primary: '#16213e',
   border: '#0f3460',
+  hoverSidebar: '#16213e',
+  activeSidebar: '#0f3460',
 };
 
 const sections = [
@@ -43,7 +39,6 @@ const sections = [
     title: 'Administrativo',
     items: [
       { text: 'Gestão', icon: <PeopleIcon />, path: '/gestao' },
-      { text: 'Financeiro', icon: <BarChartIcon />, path: '/financeiro' },
     ],
   },
   {
@@ -67,118 +62,13 @@ export default function Sidebar() {
       navigate('/login');
     } catch (error) {
       console.error('Erro ao fazer logout:', error);
-    navigate('/login');
+      navigate('/login');
     }
   };
 
-<<<<<<< HEAD
   const handleNavigation = (path: string) => {
     navigate(path);
   };
-=======
-  // Renderização para dispositivos móveis
-  if (isMobile) {
-    return (
-      <>
-        {/* Botão hambúrguer para abrir menu */}
-        <IconButton 
-          onClick={() => setOpen(true)} 
-          sx={{ 
-            position: 'fixed', 
-            top: 16, 
-            left: 16, 
-            zIndex: 2000, 
-            color: resolutyPalette.text 
-          }}
-        >
-          <MenuIcon fontSize="large" />
-        </IconButton>
-        
-        {/* Drawer temporário para mobile */}
-        <Drawer 
-          anchor="left" 
-          open={open} 
-          onClose={() => setOpen(false)}
-          PaperProps={{ 
-            sx: { 
-              background: resolutyPalette.sidebar, 
-              color: resolutyPalette.text, 
-              width: 220 
-            } 
-          }}
-        >
-          {/* Logo da empresa */}
-          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', py: 2 }}>
-            <img src={Logo} alt="Resoluty Logo" style={{ height: 40 }} />
-          </Box>
-          
-          {/* Conteúdo do menu */}
-          <Box sx={{ px: 2, display: 'flex', flexDirection: 'column', height: '100%' }}>
-            <Box sx={{ flex: 1 }}>
-              {sections.map(section => (
-                <List key={section.title} sx={{ mb: 2 }}>
-                  <ListSubheader 
-                    disableSticky 
-                    sx={{ 
-                      background: 'transparent', 
-                      color: resolutyPalette.text, 
-                      fontWeight: 700 
-                    }}
-                  >
-                    {section.title}
-                  </ListSubheader>
-                  
-                  {section.items.map(item => (
-                    <ListItemButton
-                      key={item.text}
-                      onClick={() => { setOpen(false); navigate(item.path); }}
-                      sx={{ 
-                        pl: 2, 
-                        mb: 0.5, 
-                        borderRadius: 1, 
-                        '&:hover': { background: resolutyPalette.hoverSidebar }, 
-                        background: item.path === window.location.pathname ? resolutyPalette.activeSidebar : 'transparent', 
-                        color: resolutyPalette.text, 
-                        display: 'flex', 
-                        alignItems: 'center', 
-                        gap: 2 
-                      }}
-                      component="li"
-                    >
-                      <ListItemIcon sx={{ minWidth: 36, color: resolutyPalette.text }}>
-                        {item.icon}
-                      </ListItemIcon>
-                      <ListItemText primary={item.text} />
-                    </ListItemButton>
-                  ))}
-                </List>
-              ))}
-            </Box>
-            
-            {/* Botão de logout */}
-            <Divider sx={{ my: 2, borderColor: resolutyPalette.text }} />
-            <Button
-              fullWidth
-              variant="outlined"
-              startIcon={<LogoutIcon />}
-              onClick={handleLogout}
-              sx={{
-                color: resolutyPalette.text,
-                borderColor: resolutyPalette.text,
-                '&:hover': {
-                  borderColor: resolutyPalette.activeSidebar,
-                  background: resolutyPalette.hoverSidebar
-                }
-              }}
-            >
-              Sair
-            </Button>
-          </Box>
-        </Drawer>
-      </>
-    );
-  }
->>>>>>> parent of f7bfafb (.)
 
   return (
     <Drawer
@@ -225,16 +115,10 @@ export default function Sidebar() {
                       pl: 2,
                       mb: 0.5,
                       borderRadius: 1,
-<<<<<<< HEAD
                       '&:hover': { background: resolutyPalette.border },
                       background: location.pathname === item.path ? resolutyPalette.primary : 'transparent',
                       color: resolutyPalette.text,
                       cursor: 'pointer',
-=======
-                      '&:hover': { background: resolutyPalette.hoverSidebar },
-                      background: item.path === window.location.pathname ? resolutyPalette.activeSidebar : 'transparent',
-                      color: item.path === window.location.pathname ? resolutyPalette.text : resolutyPalette.text,
->>>>>>> parent of f7bfafb (.)
                     }}
                     component="li"
                   >

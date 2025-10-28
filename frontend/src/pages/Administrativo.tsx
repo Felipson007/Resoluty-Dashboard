@@ -7,7 +7,6 @@ import {
   Schedule, 
   Assessment, 
   Security,
-  AdminPanelSettings,
   Description,
   FolderOpen,
   Work,
@@ -136,7 +135,7 @@ const getMockData = () => ({
   },
 });
 
-const chartOptions = (title: string, isPie = false, isLine = false) => ({
+const chartOptions = (title: string, isPie = false) => ({
   responsive: true,
   maintainAspectRatio: false,
   plugins: {
@@ -361,7 +360,7 @@ export default function Administrativo() {
             }}
           >
             <Box sx={{ height: { xs: 280, sm: 320 } }}>
-              <Line data={mockData.eficienciaData} options={chartOptions('Eficiência Administrativa (%)', false, true)} />
+              <Line data={mockData.eficienciaData} options={chartOptions('Eficiência Administrativa (%)', false)} />
             </Box>
           </Paper>
         </Grid>
