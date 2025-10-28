@@ -15,7 +15,7 @@
  */
 
 import React from 'react';
-import { Drawer, List, ListItem, ListItemIcon, ListItemText, Box, Typography, ListSubheader, ListItemButton, Divider, Button } from '@mui/material';
+import { Drawer, List, ListItem, ListItemIcon, ListItemText, Box, Typography, ListSubheader, ListItemButton, Divider, Button, Collapse } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import PeopleIcon from '@mui/icons-material/People';
@@ -24,10 +24,12 @@ import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import MenuIcon from '@mui/icons-material/Menu';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
 import IconButton from '@mui/material/IconButton';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { resolutyPalette } from '@/pages/Financeiro';
 import Logo from '@/logo.svg';
@@ -54,10 +56,16 @@ const sections = [
     title: 'Geral',
     items: [
       { text: 'Comercial', icon: <TrendingUpIcon />, path: '/comercial' },
-      { text: 'Costumer Sucess', icon: <SupportAgentIcon />, path: '/customer-success' },
+      { text: 'Customer Success', icon: <SupportAgentIcon />, path: '/customer-success', hasSubmenu: true },
       { text: 'Administrativo', icon: <MenuBookIcon />, path: '/administrativo' },
     ],
   },
+];
+
+const csSubmenu = [
+  { text: 'Geral', path: '/customer-success/geral' },
+  { text: 'Financeiro', path: '/customer-success/financeiro' },
+  { text: 'Atendimentos', path: '/customer-success/atendimentos' },
 ];
 
 /**
@@ -68,8 +76,17 @@ export default function Sidebar() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [open, setOpen] = React.useState(false);
+  const [csExpanded, setCsExpanded] = React.useState(false);
   const router = useRouter();
+  const pathname = usePathname();
   const { logout } = useAuth();
+
+  // Expandir automaticamente o submenu CS se estiver em uma página de CS
+  React.useEffect(() => {
+    if (pathname?.startsWith('/customer-success')) {
+      setCsExpanded(true);
+    }
+  }, [pathname]);
 
   /**
    * Função para fazer logout do usuário
@@ -137,27 +154,56 @@ export default function Sidebar() {
                   </ListSubheader>
                   
                   {section.items.map(item => (
-                    <ListItemButton
-                      key={item.text}
-                      onClick={() => { setOpen(false); router.push(item.path); }}
-                      sx={{ 
-                        pl: 2, 
-                        mb: 0.5, 
-                        borderRadius: 1, 
-                        '&:hover': { background: resolutyPalette.border }, 
-                        background: item.path === window.location.pathname ? resolutyPalette.primary : 'transparent', 
-                        color: resolutyPalette.text, 
-                        display: 'flex', 
-                        alignItems: 'center', 
-                        gap: 2 
-                      }}
-                      component="li"
-                    >
-                      <ListItemIcon sx={{ minWidth: 36, color: resolutyPalette.text }}>
-                        {item.icon}
-                      </ListItemIcon>
-                      <ListItemText primary={item.text} />
-                    </ListItemButton>
+                    <React.Fragment key={item.text}>
+                      <ListItemButton
+                        onClick={() => { 
+                          if (item.hasSubmenu) {
+                            setCsExpanded(!csExpanded);
+                          } else {
+                            setOpen(false); 
+                            router.push(item.path); 
+                          }
+                        }}
+                        sx={{ 
+                          pl: 2, 
+                          mb: 0.5, 
+                          borderRadius: 1, 
+                          '&:hover': { background: resolutyPalette.border }, 
+                          background: pathname === item.path ? resolutyPalette.primary : 'transparent', 
+                          color: resolutyPalette.text, 
+                          display: 'flex', 
+                          alignItems: 'center', 
+                          gap: 2 
+                        }}
+                        component="li"
+                      >
+                        <ListItemIcon sx={{ minWidth: 36, color: resolutyPalette.text }}>
+                          {item.icon}
+                        </ListItemIcon>
+                        <ListItemText primary={item.text} />
+                        {item.hasSubmenu && (csExpanded ? <ExpandLess /> : <ExpandMore />)}
+                      </ListItemButton>
+
+                      {item.hasSubmenu && (
+                        <Collapse in={csExpanded} timeout="auto" unmountOnExit>
+                          <List component="div" disablePadding>
+                            {csSubmenu.map(subItem => (
+                              <ListItemButton
+                                key={subItem.text}
+                                onClick={() => { setOpen(false); router.push(subItem.path); }}
+                                sx={{ 
+                                  pl: 4,
+                                  '&:hover': { background: resolutyPalette.border },
+                                  background: pathname === subItem.path ? resolutyPalette.primary : 'transparent',
+                                }}
+                              >
+                                <ListItemText primary={subItem.text} />
+                              </ListItemButton>
+                            ))}
+                          </List>
+                        </Collapse>
+                      )}
+                    </React.Fragment>
                   ))}
                 </List>
               ))}
@@ -224,24 +270,56 @@ export default function Sidebar() {
               
               <List disablePadding>
                 {section.items.map(item => (
-                  <ListItem
-                    key={item.text}
-                    onClick={() => router.push(item.path)}
-                    sx={{
-                      pl: 2,
-                      mb: 0.5,
-                      borderRadius: 1,
-                      '&:hover': { background: resolutyPalette.border },
-                      background: item.path === window.location.pathname ? resolutyPalette.primary : 'transparent',
-                      color: item.path === window.location.pathname ? resolutyPalette.text : resolutyPalette.text,
-                    }}
-                    component="li"
-                  >
-                    <ListItemIcon sx={{ minWidth: 36, color: resolutyPalette.text }}>
-                      {item.icon}
-                    </ListItemIcon>
-                    <ListItemText primary={item.text} />
-                  </ListItem>
+                  <React.Fragment key={item.text}>
+                    <ListItem
+                      onClick={() => { 
+                        if (item.hasSubmenu) {
+                          setCsExpanded(!csExpanded);
+                        } else {
+                          router.push(item.path);
+                        }
+                      }}
+                      sx={{
+                        pl: 2,
+                        mb: 0.5,
+                        borderRadius: 1,
+                        '&:hover': { background: resolutyPalette.border },
+                        background: pathname === item.path ? resolutyPalette.primary : 'transparent',
+                        color: resolutyPalette.text,
+                        cursor: 'pointer',
+                      }}
+                      component="li"
+                    >
+                      <ListItemIcon sx={{ minWidth: 36, color: resolutyPalette.text }}>
+                        {item.icon}
+                      </ListItemIcon>
+                      <ListItemText primary={item.text} />
+                      {item.hasSubmenu && (csExpanded ? <ExpandLess /> : <ExpandMore />)}
+                    </ListItem>
+
+                    {item.hasSubmenu && (
+                      <Collapse in={csExpanded} timeout="auto" unmountOnExit>
+                        <List component="div" disablePadding>
+                          {csSubmenu.map(subItem => (
+                            <ListItem
+                              key={subItem.text}
+                              onClick={() => router.push(subItem.path)}
+                              sx={{
+                                pl: 4,
+                                mb: 0.5,
+                                borderRadius: 1,
+                                '&:hover': { background: resolutyPalette.border },
+                                background: pathname === subItem.path ? resolutyPalette.primary : 'transparent',
+                                cursor: 'pointer',
+                              }}
+                            >
+                              <ListItemText primary={subItem.text} />
+                            </ListItem>
+                          ))}
+                        </List>
+                      </Collapse>
+                    )}
+                  </React.Fragment>
                 ))}
               </List>
             </Box>

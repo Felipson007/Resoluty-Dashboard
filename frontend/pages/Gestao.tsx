@@ -242,15 +242,6 @@ export default function Gestao() {
       color: resolutyPalette.text,
       padding: { xs: 2, sm: 3 }
     }}>
-      <Typography variant="h3" gutterBottom sx={{ 
-        fontWeight: 700, 
-        color: resolutyPalette.text,
-        marginBottom: 4,
-        textAlign: 'center',
-        fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' }
-      }}>
-        🎯 Dashboard de Gestão
-      </Typography>
 
       {/* KPIs Principais */}
       <Grid container spacing={{ xs: 2, sm: 3 }} sx={{ marginBottom: 4 }}>

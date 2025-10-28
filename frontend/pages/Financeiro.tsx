@@ -252,14 +252,6 @@ export default function Financeiro() {
       color: resolutyPalette.text,
       padding: 3
     }}>
-      <Typography variant="h3" gutterBottom sx={{ 
-        fontWeight: 700, 
-        color: resolutyPalette.text,
-        marginBottom: 4,
-        textAlign: 'center'
-      }}>
-        📊 Dashboard Financeiro
-      </Typography>
 
       {/* KPIs Principais */}
       <Grid container spacing={3} sx={{ marginBottom: 4 }}>

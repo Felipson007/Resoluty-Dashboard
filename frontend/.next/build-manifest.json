@@ -1,82 +1,19 @@
 {
   "polyfillFiles": [
-    "static/chunks/polyfills-42372ed130431b0a.js"
+    "static/chunks/polyfills.js"
   ],
   "devFiles": [],
   "ampDevFiles": [],
   "lowPriorityFiles": [
-    "static/iXCvv53kz24u3vjS9FgZS/_buildManifest.js",
-    "static/iXCvv53kz24u3vjS9FgZS/_ssgManifest.js"
+    "static/development/_buildManifest.js",
+    "static/development/_ssgManifest.js"
   ],
   "rootMainFiles": [
-    "static/chunks/webpack-ae7f8552ea7f451c.js",
-    "static/chunks/fd9d1056-57f58e501f610928.js",
-    "static/chunks/117-6a1b6e47f536be85.js",
-    "static/chunks/main-app-d3bdcb247e6ae12f.js"
+    "static/chunks/webpack.js",
+    "static/chunks/main-app.js"
   ],
   "pages": {
-    "/Administrativo": [
-      "static/chunks/webpack-ae7f8552ea7f451c.js",
-      "static/chunks/framework-d78c58a36795ca32.js",
-      "static/chunks/main-04ca8b2f5b3ee64a.js",
-      "static/chunks/ee8b1517-df8549e0cd29595d.js",
-      "static/chunks/750-dd258084be272420.js",
-      "static/chunks/pages/Administrativo-b73400740c7853cf.js"
-    ],
-    "/Comercial": [
-      "static/chunks/webpack-ae7f8552ea7f451c.js",
-      "static/chunks/framework-d78c58a36795ca32.js",
-      "static/chunks/main-04ca8b2f5b3ee64a.js",
-      "static/chunks/ee8b1517-df8549e0cd29595d.js",
-      "static/chunks/750-dd258084be272420.js",
-      "static/chunks/pages/Comercial-af6641b85dfba6a2.js"
-    ],
-    "/CustomerSuccess": [
-      "static/chunks/webpack-ae7f8552ea7f451c.js",
-      "static/chunks/framework-d78c58a36795ca32.js",
-      "static/chunks/main-04ca8b2f5b3ee64a.js",
-      "static/chunks/ee8b1517-df8549e0cd29595d.js",
-      "static/chunks/750-dd258084be272420.js",
-      "static/chunks/486-e42eae70eab6ba06.js",
-      "static/chunks/pages/CustomerSuccess-99f982bfca94cfe4.js"
-    ],
-    "/Financeiro": [
-      "static/chunks/webpack-ae7f8552ea7f451c.js",
-      "static/chunks/framework-d78c58a36795ca32.js",
-      "static/chunks/main-04ca8b2f5b3ee64a.js",
-      "static/chunks/ee8b1517-df8549e0cd29595d.js",
-      "static/chunks/750-dd258084be272420.js",
-      "static/chunks/pages/Financeiro-8f942e8a01d18a95.js"
-    ],
-    "/Gestao": [
-      "static/chunks/webpack-ae7f8552ea7f451c.js",
-      "static/chunks/framework-d78c58a36795ca32.js",
-      "static/chunks/main-04ca8b2f5b3ee64a.js",
-      "static/chunks/ee8b1517-df8549e0cd29595d.js",
-      "static/chunks/750-dd258084be272420.js",
-      "static/chunks/pages/Gestao-6530f1bc72e91ad6.js"
-    ],
-    "/Home": [
-      "static/chunks/webpack-ae7f8552ea7f451c.js",
-      "static/chunks/framework-d78c58a36795ca32.js",
-      "static/chunks/main-04ca8b2f5b3ee64a.js",
-      "static/chunks/ee8b1517-df8549e0cd29595d.js",
-      "static/chunks/750-dd258084be272420.js",
-      "static/chunks/486-e42eae70eab6ba06.js",
-      "static/chunks/pages/Home-c1a9ee308043c0ce.js"
-    ],
-    "/_app": [
-      "static/chunks/webpack-ae7f8552ea7f451c.js",
-      "static/chunks/framework-d78c58a36795ca32.js",
-      "static/chunks/main-04ca8b2f5b3ee64a.js",
-      "static/chunks/pages/_app-72b849fbd24ac258.js"
-    ],
-    "/_error": [
-      "static/chunks/webpack-ae7f8552ea7f451c.js",
-      "static/chunks/framework-d78c58a36795ca32.js",
-      "static/chunks/main-04ca8b2f5b3ee64a.js",
-      "static/chunks/pages/_error-7ba65e1336b92748.js"
-    ]
+    "/_app": []
   },
   "ampFirstPages": []
 }

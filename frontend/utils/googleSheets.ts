@@ -1,9 +1,21 @@
-// Utilitário para leitura de Google Sheets via backend (Service Account)
+/**
+ * Utilitário para leitura de Google Sheets via Google API diretamente
+ */
 
+import { googleSheetsService } from '../services/googleSheetsService';
+
+/**
+ * Obtém dados de uma planilha do Google Sheets
+ * 
+ * @param spreadsheetId - ID da planilha
+ * @param sheetName - Nome da aba (ex: 'A1:D10')
+ * @returns Promise<any[][]> - Array 2D com os dados
+ */
 export async function getSheetData(spreadsheetId: string, sheetName: string): Promise<any[][]> {
-  const url = `http://localhost:4000/api/sheets/${spreadsheetId}/${encodeURIComponent(sheetName)}`;
-  const response = await fetch(url);
-  if (!response.ok) throw new Error('Erro ao buscar dados do backend');
-  const data = await response.json();
-  return data || [];
+  try {
+    return await googleSheetsService.readData(spreadsheetId, sheetName);
+  } catch (error: any) {
+    console.error('Erro ao buscar dados do Google Sheets:', error);
+    throw error;
+  }
 } 
